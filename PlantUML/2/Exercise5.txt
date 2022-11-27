@@ -1,0 +1,49 @@
+@startuml
+hide circle
+'avoid problems with angled crows feet
+skinparam linetype ortho
+
+
+entity "Kunde" as d01 #line:black;back:grey {
+* *kunde_id: integer <<generated>>
+--
+* *vorname: char(20)
+* *nachname: char(20)
+*anrede: char(20)
+* *geschlecht: char(20)
+*geburtstag: date
+*ortname: char(20)
+*landname: char(20)
+
+}
+entity "Ort" as d02 #line:black;back:grey {
+* *ort_id: integer <<generated>>
+--
+* *ortname: char(20)
+* *land: char(20)
+}
+entity "Fahrzeug" as d03 #line:black;back:grey {
+* *fahrzeug_id: integer <<generated>>
+--
+* *fin: varchar(17) <<unique>>
+* *baujahr: integer
+* *modell: varchar(200)
+* *kennzeichen: varchar(20)
+* *herstellername: char(20)
+}
+
+entity "E_Messdaten" as f01 #line:black;back:green {
+* *kunde_id: integer <<FK>>
+* *fahrzeug_id: integer <<FK>>
+* *ort_messung_id: integer <<FK>>
+* *zeit_messung: timestamp 
+* *zeit_eintreffen: timestamp
+* *geschwindigkeit: integer
+} 
+
+
+d01 ||--o{ f01
+d02 ||--o{ f01
+d03 ||--o{ f01
+
+@enduml
