@@ -1,0 +1,119 @@
+@startuml
+hide circle
+'avoid problems with angled crows feet
+skinparam linetype ortho
+
+
+entity "H_Kunde" as h01 #line:black;back:DeepSkyBlue {
+*k_id: integer <<generated>>
+--
+*kunde_id: integer <<unique>>
+* *loaddate : timestamp
+* *recordsource : varchar(10)
+} 
+
+
+entity "H_Fahrzeug" as h02 #line:black;back:DeepSkyBlue {
+*f_id : integer <<generated>>
+--
+* fin: char(17) <<unique>>
+* *loaddate : timestamp
+* *recordsource : varchar(10)
+}
+
+entity "H_Hersteller" as h03 #line:black;back:DeepSkyBlue {
+*h_id : integer <<generated>>
+--
+* hersteller_code: char(3) <<unique>>
+* *loaddate : timestamp
+* *recordsource : varchar(10)
+} 
+
+
+
+entity "SAT_Kunde1" as t01 #line:black;back:Gold {
+* k_id: integer <<generated>>
+* loaddate : timestamp
+--
+*  *recordsource: varchar(10)
+*  *vorname: char(20)
+*  *nachname: char(20) 
+*  *anrede: char(20)
+*  *r_ortid: integer<<unique>>
+} 
+entity "SAT_Kunde2" as t02 #line:black;back:Gold {
+* k_id: integer <<generated>>
+* loaddate : timestamp
+--
+*  *recordsource : varchar(10)
+*  *geschlecht: char(20)
+*  *geburtsdatum: date
+} 
+
+entity "SAT_Fahrzeug" as t03 #line:black;back:Gold {
+* f_id: integer <<generated>>
+*loaddate : timestamp
+--
+* *baujahr: integer
+* *modell: varchar(200)
+* *recordsource : varchar(10)
+} 
+
+entity "SAT_Messung" as t04 #line:black;back:Gold {
+* f_id: integer <<generated>>
+*loaddate : timestamp
+--
+*  *messung_id: integer <<unique>>
+* *zeit: timestamp
+* *geschwindigkeit: integer
+* *r_ortid: integer
+* *recordsource : varchar(10)
+} 
+
+entity "SAT_Hersteller" as t05 #line:black;back:Gold {
+* hersteller_id: integer <<unique>>
+*loaddate : timestamp
+--
+* *hersteller: varchar(200)
+* *recordsource : varchar(10)
+} 
+
+entity "SAT_Kennzeichen" as t06 #line:black;back:Gold {
+* f_id: integer <<generated>>
+*loaddate : timestamp
+--
+* *kfz_kennzeichen: varchar(20) <<unique>>
+} 
+
+
+entity "LNK_Fahrzeug2Kunde" as l01 #line:black;back:HotPink {
+* lb_ID: integer <<generated>>
+--
+*f_id: integer <<unique>>
+*k_id: integer <<unique>>
+*loaddate : timestamp
+*recordsource : varchar(10)
+} 
+
+entity "LNK_Fahrzeug2Hersteller" as l02 #line:black;back:HotPink {
+* fh_id: integer <<generated>>
+--
+*f_id: integer <<unique>>
+*k_id: integer <<unique>>
+*loaddate : timestamp
+*recordsource : varchar(10)
+} 
+
+
+
+h01 -- t01
+h01 -- t02
+h01 -- l01
+l01 -- h02
+h02--t03
+h02--t04
+h03--t05
+h02-- l02
+h03-- l02
+h02-- t06
+@enduml
