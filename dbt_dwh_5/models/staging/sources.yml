@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: staging
+    tables:
+      - name: fahrzeug
+      - name: hersteller
+      - name: kfzzuordnung
+      - name: kunde
+      - name: land
+      - name: messung
+      - name: ort
