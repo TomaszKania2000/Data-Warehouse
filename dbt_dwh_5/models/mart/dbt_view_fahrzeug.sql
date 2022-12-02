@@ -5,7 +5,7 @@
 }}
 
 with D_Fahrzeug as (
-    select *
+    select f.fin,f.baujahr,f.modell,h.hersteller,k.kfz_kennzeichen
     from
         {{ source('staging', 'kfzzuordnung') }} as k
     inner join
@@ -16,7 +16,7 @@ with D_Fahrzeug as (
     -- filter for an incremental run to get new data
     {% if is_incremental() %}
 
-        where f.erstellt_am > (select max(f.erstellt_am) from {{ this }})
+        where f.erstellt_am > (select max(erstellt_am) from {{ source('staging', 'fahrzeug') }})
 
     {% endif %}
 )
