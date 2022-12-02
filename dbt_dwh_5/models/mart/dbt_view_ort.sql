@@ -9,5 +9,5 @@ with D_Ort as (
     from {{ source('staging', 'ort') }} as o, {{ source('staging', 'land') }} as l
     where o.land_id = l.land_id
 )
-select ROW_NUMBER() OVER (), *
+select ROW_NUMBER() OVER () as d_ort_key, *
 from D_Ort

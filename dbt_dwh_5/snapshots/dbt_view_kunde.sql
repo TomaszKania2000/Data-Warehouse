@@ -16,7 +16,7 @@ with D_Kunde as (
     {{ source('staging', 'land') }} as l
     where o.land_id = l.land_id and k.wohnort = o.ort_id
 )
-select ROW_NUMBER() OVER (),*
+select ROW_NUMBER() OVER () as d_kunde_key,*
 from D_Kunde
 
 {% endsnapshot %}

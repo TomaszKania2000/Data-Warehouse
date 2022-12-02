@@ -22,5 +22,5 @@ with D_Fahrzeug as (
 )
 
 
-select ROW_NUMBER() OVER (), *
+select ROW_NUMBER() OVER () as d_fahrzeug_key, *
 from D_Fahrzeug
